@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-app';
+  products = [
+    {name: 'Celular', description: 'descrição top do celular'},
+    {name: 'Iphone', description: 'descrição top do iphone'},
+    {name: 'Acer', description: 'descrição top do acer'}
+  ]
+  
 }

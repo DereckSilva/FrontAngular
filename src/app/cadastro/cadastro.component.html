@@ -1,0 +1,15 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="name" id="name">
+    <input type="email" formControlName="email" id="email">
+    <input type="password" formControlName="password" id="password">
+    <input type="password" formControlName="confirmPassword" id="confirmPassword">
+
+    <button type="submit">Cadastrar</button>
+
+    <div>
+        <span *ngIf="succes">
+            {{succes.message}}
+        </span>
+        <span *ngIf="error">{{error.message}}</span>
+    </div>
+</form>

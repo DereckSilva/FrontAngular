@@ -15,12 +15,7 @@
     </span>
     <span *ngIf="myForm.get('password')?.errors === null">
     salveeeee</span>
-    <input type="password" formControlName="confirmPassword">
-    <span *ngIf="!myForm.get('confirmPassword')?.errors?.['required'] && 
-    myForm.get('confirmPassword')?.errors?.['minLenght']?.['actualLenght'] < valorMin; else elseBlock">
-        É necessário no mínimo {{valorMin}} caracteres
-    </span>
-    <ng-template #elseBlock>opa</ng-template>
     <button type="submit"
     >Submit</button>
 </form>
+<a routerLink="/cadastro">Cadastro</a>

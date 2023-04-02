@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment.development';
+import { AuthService } from '../auth/auth.service';
+import { message } from '../login/tipos';
 
 
 @Component({
@@ -13,38 +15,32 @@ export class CadastroComponent {
 
   constructor(
     private http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService
   )
   {}
 
   
-
   myForm: FormGroup;
-  succes: any
-  error: any
+  succes: message
+  error: message
   apiUrl = environment.api;
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      name: [],
-      email: [],
-      password: [],
-      confirmPassword: []
+      name: [''],
+      email: [''],
+      password: [''],
+      confirmPassword: ['']
     })
   }
 
   onSubmit(){
     if (this.myForm.valid) {
-      this.http.post(`${this.apiUrl}/cadUser`, this.myForm.value).subscribe(
-        (dados) => {
-          this.error = null
-          this.succes = dados
-        },
-        (error) => {
-          this.succes = null
-          this.error = error.error
-        }
-      )
+      this.authService.cadUser(this.myForm.value).subscribe({
+        next: (dados) => this.succes = dados,
+        error: (error) => this.error = error
+    })
     }
   }
 

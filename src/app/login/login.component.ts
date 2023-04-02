@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment.development';
+import { AuthService } from '../auth/auth.service';
 
 
 @Component({
@@ -14,14 +13,13 @@ import { environment } from 'src/environments/environment.development';
 export class LoginComponent {
 
   constructor(
-    private http: HttpClient, 
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private serviceHttp: AuthService,
     ){}
 
   myForm: FormGroup
   valorMin = 8
-  apiUrl = environment.api
   
   ngOnInit(): void {
     
@@ -37,16 +35,12 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.myForm.valid) {
-      console.log('opa')
-      this.http.post(`${this.apiUrl}/api/login`, this.myForm.value).subscribe(
-        (dados) =>  { 
-          if (dados) {
-            this.router.navigate(['/products'])
-          }
-        },
-      (erro) => { 
-        console.error(erro.error.message) 
-      }
+
+      this.serviceHttp.loginUser(this.myForm.value).subscribe(
+        {
+          next: () => this.router.navigate(['/produtos']) ,
+          error: (error) =>  console.error(error.error.message)  
+        }
       )
     }
   }

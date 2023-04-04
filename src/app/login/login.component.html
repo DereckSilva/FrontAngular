@@ -8,13 +8,10 @@
     <span *ngIf="myForm.get('password')?.errors?.['required']?.touched">
         É necessário digitar a senha
     </span>
-    <span *ngIf="!myForm.get('password')?.errors?.['required'] && 
-    myForm.get('password')?.errors?.['minLenght']?.['actualLenght'] < valorMin &&
-    myForm.get('password')?.errors?.['minLenght']?.['actualLenght']?.touched">
+    <span *ngIf="myForm.get('password')?.errors?.['required'] && 
+    myForm.get('password')?.errors?.['minLenght']?.['actualLenght'] < valorMin">
         É necessário no mínimo {{valorMin}} caracteres
     </span>
-    <span *ngIf="myForm.get('password')?.errors === null">
-    salveeeee</span>
     <button type="submit"
     >Submit</button>
 </form>

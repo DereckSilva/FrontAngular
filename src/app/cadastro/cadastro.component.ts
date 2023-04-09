@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment.development';
 import { AuthService } from '../auth/auth.service';
 import { message } from '../login/tipos';
+import { ChannelService } from '../channel/channel.service';
 
 
 @Component({
@@ -14,13 +15,12 @@ import { message } from '../login/tipos';
 export class CadastroComponent {
 
   constructor(
-    private http: HttpClient,
     private formBuilder: FormBuilder,
-    private authService: AuthService
-  )
-  {}
+    private authService: AuthService,
+    private channel: ChannelService,
+    private http: HttpClient
+  ){}
 
-  
   myForm: FormGroup;
   succes: message
   error: message
@@ -33,6 +33,9 @@ export class CadastroComponent {
       password: [''],
       confirmPassword: ['']
     })
+    this.channel.channel('teste').subscribe(
+      (data) => console.log(data)
+    )
   }
 
   onSubmit(){

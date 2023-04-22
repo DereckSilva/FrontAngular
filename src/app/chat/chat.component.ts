@@ -9,7 +9,7 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-  private socket = io('http://localhost:3000')
+  private socket = io('http://localhost:3000/teste')
 
   myForm: FormGroup
   client: string[] = []

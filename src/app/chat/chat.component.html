@@ -1,0 +1,6 @@
+<div>
+    <p *ngFor="let message of client">{{message}}</p>
+    <form [formGroup]="myForm" (ngSubmit)="ngOnSubmit($event)">
+        <input type="text" formControlName="comment" id="chat">
+    </form>
+</div>

@@ -45,6 +45,16 @@ export class AuthService {
     return this.http.post<message>(`${this.apiUrl}/cadUser`, body, httpHeaders)
   }
 
+  comment(body: string): Observable<any> {
+    const httpHeaders = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      })
+    }
+
+    return this.http.post(`${this.apiUrl}/comment`, body, httpHeaders)
+  }
+
   userAuthenticate() {
     return this.userAuth
   }

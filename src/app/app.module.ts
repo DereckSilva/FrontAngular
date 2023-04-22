@@ -8,11 +8,13 @@ import { LoginModule } from './login/login.module';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CadastroComponent
+    CadastroComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

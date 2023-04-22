@@ -1,10 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { environment } from 'src/environments/environment.development';
 import { AuthService } from '../auth/auth.service';
 import { message } from '../login/tipos';
-import { ChannelService } from '../channel/channel.service';
+import { io } from 'socket.io-client'
 
 
 @Component({
@@ -17,14 +16,13 @@ export class CadastroComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private channel: ChannelService,
-    private http: HttpClient
   ){}
 
   myForm: FormGroup;
   succes: message
   error: message
   apiUrl = environment.api;
+  message: string[] = []
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
@@ -32,10 +30,13 @@ export class CadastroComponent {
       email: [''],
       password: [''],
       confirmPassword: ['']
+    })  
+    const socket = io('http://localhost:3000')
+
+    socket.on('client', (message) => {
+      console.log(message)
+      this.message.push(message.data.user.id)
     })
-    this.channel.channel('teste').subscribe(
-      (data) => console.log(data)
-    )
   }
 
   onSubmit(){

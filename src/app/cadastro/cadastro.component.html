@@ -12,4 +12,9 @@
         </span>
         <span *ngIf="error">{{error.message}}</span>
     </div>
+    <div>
+        <p *ngFor="let value of message">
+            {{value}}
+        </p>
+    </div>
 </form>

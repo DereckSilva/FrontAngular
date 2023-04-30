@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { environment } from 'src/environments/environment.development';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(this.valorMin)]],
     })
+
   }
   
   get myFormControll() {
@@ -34,8 +36,9 @@ export class LoginComponent {
   }
 
   navigate(data:string) {
-      localStorage.setItem('token', data)
-      this.router.navigate(['/produtos'])
+    const expires = new Date().getTime() + parseInt(environment.expiresToken) 
+    localStorage.setItem('token', JSON.stringify({valor: data, expiresAt: expires}))
+    this.router.navigate(['/produtos'])
   }
 
   onSubmit() {

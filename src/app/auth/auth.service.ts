@@ -3,13 +3,14 @@ import { Observable, throwError } from 'rxjs';
 import { message } from '../login/tipos';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   apiUrl = environment.api
   userAuth: boolean = false
@@ -48,6 +49,7 @@ export class AuthService {
   comment(body: string): Observable<any> {
     const httpHeaders = {
       headers: new HttpHeaders({
+        'Autorization': 'Bearer ' + this.userAuthenticate(),
         'Content-type': 'application/json'
       })
     }
@@ -56,6 +58,15 @@ export class AuthService {
   }
 
   userAuthenticate() {
-    return this.userAuth
+    const token = localStorage.getItem('token') ? localStorage.getItem('token') : null
+    const expiresAt = token != null ? JSON.parse(token).expiresAt : null
+    if (new Date().getTime() > expiresAt) {
+      localStorage.removeItem('token')
+      this.router.navigate(['/login'])
+    } 
+
+    const valueToken = token != null ? JSON.parse(token).valor : null
+
+    return valueToken
   }
 }

@@ -19,7 +19,8 @@ export class AuthGuardGuard {
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
 
-    if (this.authService.userAuthenticate()) {
+    const token = this.authService.userAuthenticate()
+    if (token?.split(' ') != null || token !== undefined) {
       return true
     }
 

@@ -5,11 +5,10 @@
         Email incorreto
     </span>
     <input id="password" type="password" formControlName="password">
-    <span *ngIf="myForm.get('password')?.errors?.['required']?.touched">
+    <span *ngIf="myForm.get('password')?.errors?.['required']">
         É necessário digitar a senha
     </span>
-    <span *ngIf="myForm.get('password')?.errors?.['required'] && 
-    myForm.get('password')?.errors?.['minLenght']?.['actualLenght'] < valorMin">
+    <span *ngIf="myForm.get('password')?.errors">
         É necessário no mínimo {{valorMin}} caracteres
     </span>
     <button type="submit"

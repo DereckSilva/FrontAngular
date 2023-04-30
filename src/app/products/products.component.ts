@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from './interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -10,7 +11,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class ProductsComponent {
 
-  constructor (private http: HttpClient) {}
+  constructor (private http: HttpClient, private auth: AuthService) {
+
+  }
 
   products: Product = [
     {name: 'Celular', description: 'descrição top do celular', value: 550},
@@ -29,7 +32,7 @@ export class ProductsComponent {
   get() {
     const headers = {
       headers: new HttpHeaders({
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
+        'Authorization': 'Bearer ' + this.auth.userAuthenticate()
       })
     }
     this.http.get('http://localhost:80/api/users', headers).subscribe(

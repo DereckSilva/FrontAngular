@@ -1,9 +1,22 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <input type="text" formControlName="name" id="name">
+    <span></span>
     <input type="email" formControlName="email" id="email">
+    <span></span>
     <input type="password" formControlName="password" id="password">
+    <span *ngIf="myForm.get('password')?.errors?.['required']">
+        é obrigatório a insercao de uma senha
+    </span>
+    <span *ngIf="myForm.get('password')?.errors?.['pattern']">
+        sua senha deve conter 5 caracteres e 5 numeros
+    </span>
     <input type="password" formControlName="confirmPassword" id="confirmPassword">
-
+    <span *ngIf="myForm.get('confirmPassword')?.errors?.['required']">
+        é obrigatório a insercao de uma senha
+    </span>
+    <span *ngIf="myForm.get('confirmPassword')?.errors?.['pattern']">
+        sua senha deve conter 5 caracteres e 5 numeros
+    </span>
     <button type="submit">Cadastrar</button>
 
     <div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { environment } from 'src/environments/environment.development';
 import { AuthService } from '../auth/auth.service';
 import { message } from '../login/tipos';
@@ -26,19 +26,18 @@ export class CadastroComponent {
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({
-      name: [''],
-      email: [''],
-      password: [''],
-      confirmPassword: ['']
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.pattern('[a-zA-Z]{0,5}[0-9]{0,5}') ]],
+      confirmPassword: ['', [Validators.required, Validators.pattern('[a-zA-Z]{0,5}[0-9]{0,5}')]]
     })  
-    const socket = io('http://localhost:3000')
+    //const socket = io('http://localhost:3000')
 
-    socket.on('client', (message) => {
+    /*socket.on('client', (message) => {
       console.log(message)
       this.message.push(message.data.user.id)
-    })
+    })*/
   }
-
   onSubmit(){
     if (this.myForm.valid) {
       this.authService.cadUser(this.myForm.value).subscribe({

@@ -33,12 +33,19 @@ export class LoginComponent {
     return this.myForm;
   }
 
+  navigate(data:string) {
+      localStorage.setItem('token', data)
+      this.router.navigate(['/produtos'])
+  }
+
   onSubmit() {
     if (this.myForm.valid) {
 
       this.serviceHttp.loginUser(this.myForm.value).subscribe(
         {
-          next: () => this.router.navigate(['/produtos']) ,
+          next: (data:any) => {
+            this.navigate(data.data.token.split('|')[1])
+          } ,
           error: (error) =>  console.error(error.error.message)  
         }
       )

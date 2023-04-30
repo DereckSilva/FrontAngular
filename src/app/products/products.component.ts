@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from './interface';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
@@ -27,7 +27,12 @@ export class ProductsComponent {
   }
 
   get() {
-    this.http.get('http://localhost:80/api/users').subscribe(
+    const headers = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+      })
+    }
+    this.http.get('http://localhost:80/api/users', headers).subscribe(
       (dados) => console.log(dados)
       )
   }

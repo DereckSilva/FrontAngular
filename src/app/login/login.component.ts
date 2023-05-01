@@ -54,4 +54,8 @@ export class LoginComponent {
       )
     }
   }
+
+  navigateCad() {
+    this.router.navigate(['/cadastro'])
+  }
 }

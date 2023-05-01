@@ -1,27 +1,47 @@
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <input type="text" formControlName="name" id="name">
-    <span></span>
-    <input type="email" formControlName="email" id="email">
-    <span></span>
-    <input type="password" formControlName="password" id="password">
-    <span *ngIf="myForm.get('password')?.errors?.['required']">
-        é obrigatório a insercao de uma senha
-    </span>
-    <span *ngIf="myForm.get('password')?.errors?.['pattern']">
-        sua senha deve conter 5 caracteres e 5 numeros
-    </span>
-    <input type="password" formControlName="confirmPassword" id="confirmPassword">
-    <span *ngIf="myForm.get('confirmPassword')?.errors?.['required']">
-        é obrigatório a insercao de uma senha
-    </span>
-    <span *ngIf="myForm.get('confirmPassword')?.errors?.['pattern']">
-        sua senha deve conter 5 caracteres e 5 numeros
-    </span>
-    <button type="submit">Cadastrar</button>
-
+    <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="name" type="text">
+        <mat-error *ngIf="myForm.get('name')?.errors?.['required']">
+            Insira o seu nome
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Ex: example@example.com"
+        type="email">
+        <mat-error *ngIf="myForm.get('email')?.errors?.['required']">
+            Digite o seu email
+        </mat-error>
+        <mat-error *ngIf="myForm.get('email')?.errors?.['email']">
+            O formato do e-mail está incorreto
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" placeholder="Ex: test1142" formControlName="password">
+        <mat-error *ngIf="myForm.get('password')?.errors?.['required']">
+            Digite a sua senha
+        </mat-error>
+        <mat-error *ngIf="myForm.get('password')?.errors?.['pattern']">
+            Sua senha deve conter 5 caracteres e 5 numeros
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Confirma Senha</mat-label>
+        <input matInput type="password" placeholder="Ex: tesf1236" formControlName="confirmPassword">
+        <mat-error *ngIf="myForm.get('confirmPassword')?.errors?.['required']">
+            Digite a senha de confirmação
+        </mat-error>
+        <mat-error *ngIf="myForm.get('confirmPassword')?.errors?.['confirmPassword']">
+            As senhas são diferentes
+        </mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Cadastrar</button>
+    <button mat-raised-button color="second" (click)="navigateLogin()">Login</button>
     <div>
-        <span *ngIf="succes">
-            {{succes.message}}
+        <span *ngIf="success">
+            {{success.message}}
         </span>
         <span *ngIf="error">{{error.message}}</span>
     </div>

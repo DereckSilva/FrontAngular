@@ -1,18 +1,26 @@
 
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <input id="email" type="email" formControlName="email">
-    <span *ngIf="myForm.get('email')?.errors?.['email']">
-        Email incorreto
-    </span>
-    <input id="password" type="password" formControlName="password">
-    <span *ngIf="myForm.get('password')?.errors?.['required']">
-        É necessário digitar a senha
-    </span>
-    <span *ngIf="myForm.get('password')?.errors">
-        É necessário no mínimo {{valorMin}} caracteres
-    </span>
-    <button type="submit"
-    >Submit</button>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" placeholder="Ex: example@example.com" type="email">
+        <mat-error *ngIf="myForm.get('email')?.errors?.['required']">
+            Digite o seu email
+        </mat-error>
+        <mat-error *ngIf="myForm.get('email')?.errors?.['email']">
+            Email incorreto
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" type="password">
+        <mat-error *ngIf="myForm.get('password')?.errors?.['required']">
+            É necessário digitar a senha
+        </mat-error>
+        <mat-error *ngIf="myForm.get('password')?.errors?.['minLength']">
+            É necessário no mínimo {{valorMin}} caracteres
+        </mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Submit</button>
+    <button mat-raised-button color="second" (click)="navigateCad()">Cadastro</button>
 </form>
-<a routerLink="/cadastro">Cadastro</a>
 <router-outlet></router-outlet>

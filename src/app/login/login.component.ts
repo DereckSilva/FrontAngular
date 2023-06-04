@@ -58,4 +58,7 @@ export class LoginComponent {
   navigateCad() {
     this.router.navigate(['/cadastro'])
   }
+  navigateForget() {
+    this.router.navigate(['/esqueceuSenha'])
+  }
 }

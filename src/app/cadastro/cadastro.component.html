@@ -29,11 +29,11 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Confirma Senha</mat-label>
-        <input matInput type="password" placeholder="Ex: tesf1236" formControlName="confirmPassword">
-        <mat-error *ngIf="myForm.get('confirmPassword')?.errors?.['required']">
+        <input matInput type="password" placeholder="Ex: tesf1236" formControlName="password_confirmation">
+        <mat-error *ngIf="myForm.get('password_confirmation')?.errors?.['required']">
             Digite a senha de confirmação
         </mat-error>
-        <mat-error *ngIf="myForm.get('confirmPassword')?.errors?.['confirmPassword']">
+        <mat-error *ngIf="myForm.get('password_confirmation')?.errors?.['password_confirmation']">
             As senhas são diferentes
         </mat-error>
     </mat-form-field>

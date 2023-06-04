@@ -69,4 +69,8 @@ export class AuthService {
 
     return valueToken
   }
+
+  forgetPassword(body: string) {
+    return this.http.post(`${this.apiUrl}/forgetPassword`, body);
+  }
 }

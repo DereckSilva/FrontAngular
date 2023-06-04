@@ -33,9 +33,9 @@ export class CadastroComponent {
       name: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern('[a-zA-Z]{0,5}[0-9]{0,5}') ]],
-      confirmPassword: ['', Validators.required]
+      password_confirmation: ['', Validators.required]
     }, {
-      validator: ConfirmPassword('password', 'confirmPassword')
+      validator: ConfirmPassword('password', 'password_confirmation')
     })  
     //const socket = io('http://localhost:3000')
 
@@ -48,13 +48,13 @@ export class CadastroComponent {
       if (this.myForm.valid) {
         this.authService.cadUser(this.myForm.value).subscribe({
           next: (dados) => this.success = dados,
-          error: (error) => this.error = error
+          error: (error) => this.error = error.error
       })
     }
 
   }
   
   navigateLogin() {
-    this.router.navigate(['/login'])
+    this.router.navigate([''])
   }
 }

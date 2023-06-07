@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.development';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['../register.component.css', './login.component.css']
 })
 export class LoginComponent {
 

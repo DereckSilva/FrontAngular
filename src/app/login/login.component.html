@@ -2,7 +2,7 @@
 <div class="container-principal">
 
     <div class="first-container">
-        teste teste
+        <img src="../../assets/images/Reset password-bro.png" alt="Login" width="400" heigh="400">
     </div>
     <div class="second-container">
         <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
@@ -34,14 +34,14 @@
             </div>
             <div class="button-container">
                 <div>
-                    <button type="submit" mat-raised-button color="primary">Logar</button>
+                    <button type="submit" mat-raised-button color="accent">Logar</button>
                 </div>
                 <div>
                     <button mat-raised-button color="second" (click)="navigateCad()">Cadastro</button>
                 </div>
             </div>
             <div>
-                <button mat-raised-button color="second" (click)="navigateForget()">Esqueceu Senha</button>
+                <button mat-raised-button color="second" (click)="navigateForget()" disabled="true">Esqueceu Senha</button>
             </div>
         </form>
     </div>

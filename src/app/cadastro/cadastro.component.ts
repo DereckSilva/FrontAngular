@@ -11,7 +11,7 @@ import { ConfirmPassword } from './confirmPassword.component';
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.component.html',
-  styleUrls: ['./cadastro.component.css']
+  styleUrls: ['../register.component.css', './cadastro.component.css']
 })
 export class CadastroComponent {
 

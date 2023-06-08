@@ -1,4 +1,4 @@
-<div class="container-principal">
+<div id="container-principal-cad">
     <div class="first-container">
         <img src="../../assets/images/Mobile login-pana.png" alt="Registro" width="400" height="400">
     </div>
@@ -6,8 +6,12 @@
 
         <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
             <div>
-            
-                <mat-form-field appearance="outline">
+                <h1>
+                    CADASTRO
+                </h1>
+            </div>
+            <div>
+                <mat-form-field appearance="outline" class="mat-form-field">
                     <mat-label>Nome</mat-label>
                     <input matInput formControlName="name" type="text">
                     <mat-error *ngIf="myForm.get('name')?.errors?.['required']">
@@ -17,7 +21,7 @@
             </div>
 
             <div>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field">
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" placeholder="Ex: example@example.com"
                     type="email">
@@ -30,7 +34,7 @@
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field">
                     <mat-label>Senha</mat-label>
                     <input matInput type="password" placeholder="Ex: 123456" formControlName="password">
                     <mat-error *ngIf="myForm.get('password')?.errors?.['required']">
@@ -42,8 +46,7 @@
                 </mat-form-field>
             </div>
             <div>
-
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="mat-form-field">
                     <mat-label>Confirma Senha</mat-label>
                     <input matInput type="password" placeholder="Ex: 123456" formControlName="password_confirmation">
                     <mat-error *ngIf="myForm.get('password_confirmation')?.errors?.['required']">
@@ -54,22 +57,26 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-
             <div>
+                <span *ngIf="success">
+                    <mat-card class="mat-card-success">
+                        <mat-card-content >
+                            {{success.message}}
+                        </mat-card-content>
+                    </mat-card>
+                </span>
+                <span *ngIf="error">
+                    <mat-card class="mat-card-error">
+                        <mat-card-content>
+                            {{error.message}}
+                        </mat-card-content>
+                    </mat-card>
+                </span>
+            </div>
+            <div class="button-container">
 
                 <button type="submit" mat-raised-button color="accent">Cadastrar</button>
                 <button mat-raised-button color="second" (click)="navigateLogin()">Login</button>
-            </div>
-            <div>
-                <span *ngIf="success">
-                    {{success.message}}
-                </span>
-                <span *ngIf="error">{{error.message}}</span>
-            </div>
-            <div>
-                <p *ngFor="let value of message">
-                    {{value}}
-                </p>
             </div>
         </form>
     </div>

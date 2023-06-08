@@ -62,7 +62,7 @@ export class AuthService {
     const expiresAt = token != null ? JSON.parse(token).expiresAt : null
     if (new Date().getTime() > expiresAt) {
       localStorage.removeItem('token')
-      this.router.navigate(['/login'])
+      this.router.navigate([''])
     } 
 
     const valueToken = token != null ? JSON.parse(token).valor : null
@@ -70,7 +70,7 @@ export class AuthService {
     return valueToken
   }
 
-  forgetPassword(body: string) {
+  forgetPassword(body: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/forgetPassword`, body);
   }
 }

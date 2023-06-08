@@ -14,6 +14,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { Component } from '@angular/core';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatGridListModule
+    MatGridListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

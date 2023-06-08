@@ -28,7 +28,8 @@ export class ForgetPasswordComponent {
     if (this.myForm.valid) {
       this.service.forgetPassword(this.myForm.value).subscribe(
         {
-          next: (data) => {console.log(data)}
+          next: (data) => {console.log(data)},
+          error: (data) => {console.log(data)}
         }
       )
     }

@@ -1,32 +1,52 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import '@angular/material/prebuilt-themes/purple-green.css';
 
-.container-principal {
+#container-principal-login {
     display: flex;
     align-items: center;
     height: 40.0rem;
     margin: 15.0rem auto auto auto;
     width: 90.0rem;
     border-radius: 0.8rem;
-    padding: 1.5rem;
-    box-shadow: 5px 10px rgb(125, 199, 125);
+    background-color: rgb(13, 145, 197);
+}
 
+#container-principal-cad {
+    display: flex;
+    align-items: center;
+    height: 50.0rem;
+    margin: 10.0rem auto auto auto;
+    width: 90.0rem;
+    border-radius: 0.8rem;
+    background-color: rgb(13, 145, 197);
+}
+
+.first-container > img {
+    margin: auto;
 }
 
 .first-container {
+    display: flex;
+    justify-content: center;
     border-top-left-radius: 0.8rem;
     border-bottom-left-radius: 0.8rem;
     height: 100%;
+    padding: 1.5rem;
+    box-sizing: border-box;
     margin-left: 0rem;
     width: 50%;
 }
 
 .second-container {
+    background-color: white;
+    border-top-right-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50%;
     height: 100%;
+    box-sizing: border-box;
 }
 
 .mat-form-field {
@@ -34,14 +54,43 @@
     gap: 0.8rem;
 }
 
+
 .button-container {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     gap: 0.8rem;
     margin-top: 0.5rem;
 }
 
+mat-error{
+    margin: -0.5rem;
+}
 @media (max-width: 930px){
+    #container-principal-login {
+        display: flex;
+        align-items: center;
+        height: 40.0rem;
+        margin: 15.0rem auto auto auto;
+        width: 90.0rem;
+        border-radius: 0.8rem;
+        background-color: rgb(13, 145, 197);
+    }
+    
+    #container-principal-cad {
+        display: flex;
+        align-items: center;
+        height: 40.0rem;
+        margin: 7.5rem auto auto auto;
+        width: 50.0rem;
+        border-radius: 0.8rem;
+        background-color: rgb(13, 145, 197);
+    }
+
+    .first-container > img {
+        width: 20rem;
+        height: 20rem;
+        margin:auto;
+    }
     .container-principal {
         display: flex;
         flex-direction:column;
@@ -51,8 +100,10 @@
         border-radius: 0.8rem;
         padding: 1.7rem;
     }
-
+    
     .first-container {
+        display: flex;
+        justify-content: center;
         border-top-left-radius: 0.8rem;
         border-top-right-radius: 0.8rem;
         border-bottom-left-radius: 0.0rem;
@@ -87,14 +138,24 @@
 }
 
 @media (max-width: 545px){
-    .container-principal {
+    #container-principal-login {
         display: flex;
-        flex-direction:column;
+        align-items: center;
         height: 40.0rem;
-        margin: 2.5rem auto auto auto;
-        width: 30.0rem;
+        margin: 15.0rem auto auto auto;
+        width: 90.0rem;
         border-radius: 0.8rem;
-        padding: 1.5rem;
+        background-color: rgb(13, 145, 197);
+    }
+    
+    #container-principal-cad {
+        display: flex;
+        align-items: center;
+        height: 50.0rem;
+        margin: 10.0rem auto auto auto;
+        width: 90.0rem;
+        border-radius: 0.8rem;
+        background-color: rgb(13, 145, 197);
     }
 
     .first-container {

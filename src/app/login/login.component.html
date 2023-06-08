@@ -1,20 +1,24 @@
 
-<div class="container-principal">
+<div id="container-principal-login">
 
     <div class="first-container">
-        <img src="../../assets/images/Tablet login-bro.png" alt="Login" width="400" heigh="400">
+        <img src="../../assets/images/Forgot password-amico.png" alt="Login" width="400" heigh="400">
     </div>
     <div class="second-container">
         <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
             <div>
-
+                <h1>
+                    BEM-VINDO
+                </h1>
+            </div>
+            <div>
                 <mat-form-field appearance="outline" class="mat-form-field">
                     <mat-label>Email</mat-label>
                     <input type="email" matInput formControlName="email" placeholder="Ex: example@example.com">
-                    <mat-error style="margin:-5px;" *ngIf="myForm.get('email')?.errors?.['required']">
+                    <mat-error *ngIf="myForm.get('email')?.errors?.['required']">
                         Digite o seu email
                     </mat-error>
-                    <mat-error style="margin:-5px;" *ngIf="myForm.get('email')?.errors?.['email']">
+                    <mat-error *ngIf="myForm.get('email')?.errors?.['email']">
                         Email incorreto
                     </mat-error>
                 </mat-form-field>
@@ -40,8 +44,10 @@
                     <button mat-raised-button color="second" (click)="navigateCad()">Cadastro</button>
                 </div>
             </div>
-            <div>
-                <button mat-raised-button color="second" (click)="navigateForget()" disabled="true">Esqueceu Senha</button>
+            <div class="forget">
+                <div>
+                    <button mat-raised-button  (click)="navigateForget()">Esqueceu Senha</button>
+                </div>
             </div>
         </form>
     </div>

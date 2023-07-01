@@ -45,12 +45,16 @@ export class CadastroComponent {
     })*/
   }
     onSubmit(){
-      if (this.myForm.valid) {
+      //if (this.myForm.valid) {
         this.authService.cadUser(this.myForm.value).subscribe({
           next: (dados) => this.success = dados,
-          error: (error) => this.error = error.error
+          error: (error) => {
+            console.log(error)
+            this.error = error
+          }
+          
       })
-    }
+   // }
 
   }
   

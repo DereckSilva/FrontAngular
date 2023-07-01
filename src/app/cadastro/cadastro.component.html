@@ -61,17 +61,26 @@
                 <span *ngIf="success">
                     <mat-card class="mat-card-success">
                         <mat-card-content >
-                            {{success.message}}
+                            {{success}}
                         </mat-card-content>
                     </mat-card>
                 </span>
-                <span *ngIf="error">
+                <span *ngIf="error && error.status != 0; else elseBlock">
                     <mat-card class="mat-card-error">
                         <mat-card-content>
-                            {{error.message}}
+                            {{error}}
                         </mat-card-content>
                     </mat-card>
                 </span>
+                <ng-template #elseBlock>
+                    <span *ngIf="error">
+                        <mat-card class="mat-card-error">
+                            <mat-card-content>
+                                Api fora
+                            </mat-card-content>
+                        </mat-card>
+                    </span>
+                </ng-template >
             </div>
             <div class="button-container">
 

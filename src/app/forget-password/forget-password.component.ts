@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { message } from '../login/tipos';
 
 @Component({
   selector: 'app-forget-password',
@@ -17,6 +18,7 @@ export class ForgetPasswordComponent {
   ){}
 
   myForm: FormGroup
+  error: message
 
   ngOnInit(): void {
     this.myForm = this.formBuilder.group({
@@ -28,8 +30,8 @@ export class ForgetPasswordComponent {
     if (this.myForm.valid) {
       this.service.forgetPassword(this.myForm.value).subscribe(
         {
-          next: (data) => {console.log(data)},
-          error: (data) => {console.log(data)}
+          next: (data) => {this.navigateResetePassword()},
+          error: (error) => {this.error = error.error}
         }
       )
     }
@@ -37,5 +39,9 @@ export class ForgetPasswordComponent {
 
   navigateLogin() {
     this.router.navigate([''])
+  }
+
+  navigateResetePassword() {
+    alert('salveee');
   }
 }

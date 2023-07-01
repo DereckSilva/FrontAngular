@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { message } from '../login/tipos';
+import { message, teste } from '../login/tipos';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -72,5 +73,14 @@ export class AuthService {
 
   forgetPassword(body: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/forgetPassword`, body);
+  }
+
+  rememberMe(body: teste) {
+    const httpHeaders = {
+      headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      })
+    }
+      return this.http.post(`${this.apiUrl}/rememberMe`, body, httpHeaders)
   }
 }

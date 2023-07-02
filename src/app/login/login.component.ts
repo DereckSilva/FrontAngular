@@ -4,6 +4,7 @@ import { Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { environment } from 'src/environments/environment.development';
+import { IndexedDBService } from '../indexedDB/indexed-db.service';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private router: Router,
     private serviceHttp: AuthService,
+    private indexed: IndexedDBService
     ){}
 
   myForm: FormGroup
@@ -26,12 +28,8 @@ export class LoginComponent {
     
     this.serviceHttp.rememberMe((localStorage.getItem('rememberMe')) ? { remember: localStorage.getItem('rememberMe') } : { remember: null } ).subscribe({
       next: (data: any) => {
-        if  (data.data.length !== 0 && data.status === 200) {
-          console.log('salveeeeeeee')
-          return alert('logado')
-        } else if (data.data.length === 0 && data.status === 400) {
-          return this.router.navigate([''])
-        }
+          return  (data.success) ?  
+            this.indexed.deleteIndex('aMV6GKr9DoqskytcIwPaCJPyJ4gul1p7X439t5HAm6EmidGQly2ZtZ5GZkT5') : this.router.navigate([''])
       },
       error: (error) => {} 
     })
@@ -51,7 +49,8 @@ export class LoginComponent {
   navigate(data:string, remember: string) {
     const expires = new Date().getTime() + parseInt(environment.expiresToken) 
     localStorage.setItem('token', JSON.stringify({valor: data, expiresAt: expires}))
-    localStorage.setItem('rememberMe', JSON.stringify({valor: remember}))
+    this.indexed.deleteIndex(remember)
+    this.indexed.findIndex('login', {token: remember})
     this.router.navigate(['/produtos'])
   }
 

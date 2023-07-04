@@ -26,12 +26,15 @@ export class LoginComponent {
   
   ngOnInit(): void {
     
+    let request = this.indexed.createStore('myDatabasess', 'login', 4, 'token', 'tokenIndex');
+
+    // realiza o login caso o token remember esteja setado dentro da store
     this.serviceHttp.rememberMe((localStorage.getItem('rememberMe')) ? { remember: localStorage.getItem('rememberMe') } : { remember: null } ).subscribe({
       next: (data: any) => {
-          return  (data.success) ?  
-            this.indexed.deleteIndex('aMV6GKr9DoqskytcIwPaCJPyJ4gul1p7X439t5HAm6EmidGQly2ZtZ5GZkT5') : this.router.navigate([''])
+        let request = this.indexed.createStore('myDatabasess', 'login', 4, 'token', 'tokenIndex');
+        return (data.success) ? this.indexed.findIndex('login', { token: data.data.user.remember_token }, request) : this.router.navigate(['']); 
       },
-      error: (error) => {} 
+      error: (error: any) => {return console.log(error)} 
     })
 
     this.myForm = this.formBuilder.group({
@@ -48,24 +51,27 @@ export class LoginComponent {
 
   navigate(data:string, remember: string) {
     const expires = new Date().getTime() + parseInt(environment.expiresToken) 
-    localStorage.setItem('token', JSON.stringify({valor: data, expiresAt: expires}))
-    this.indexed.deleteIndex(remember)
-    this.indexed.findIndex('login', {token: remember})
+    let request = this.indexed.createStore('myDatabasess', 'user', 4, 'tokenUser', 'tokenUserIndex');
+    this.indexed.createIndex('user', { tokenUser: data }, request) 
+
+    request = this.indexed.createStore('myDatabasess', 'login', 4, 'token', 'tokenIndex');
+    // cria a store para armazenar o token do usuário
+    this.indexed.createIndex('login', { token: remember }, request) 
+
+    // cria a store para armazenar o token para lembrar do usuário
     this.router.navigate(['/produtos'])
   }
 
   onSubmit() {
-    //if (this.myForm.valid) {
+    if (this.myForm.valid) {
 
-      this.serviceHttp.loginUser(this.myForm.value).subscribe(
-        {
-          next: (data:any) => {
-            this.navigate(data.data.token.split('|')[1], data.data.remember)
-          } ,
-          error: (error) =>  console.error(error.error.message)  
-        }
-      )
-    //}
+      this.serviceHttp.loginUser(this.myForm.value).subscribe({
+        next: (data:any) => {
+          this.navigate(data.data.token.split('|')[1], data.data.remember)
+        },
+        error: (error) =>  console.error(error.error.message)  
+      })
+    }
   }
 
   navigateCad() {
@@ -73,5 +79,14 @@ export class LoginComponent {
   }
   navigateForget() {
     this.router.navigate(['/esqueceuSenha'])
+  }
+
+  createStoreToken (token: string) {
+    let request = this.indexed.createStore('myDatabasesss', 'user', 1, 'token', 'tokenIndex')
+    this.indexed.createIndex('myDatabasesss', { token: token }, request)
+  }
+
+  createStoreRememeberMe() {
+
   }
 }

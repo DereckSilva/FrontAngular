@@ -3,37 +3,46 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class IndexedDBService {
 
-  request: any;
+export class IndexedDBService {
   constructor() { }
 
-  //abstrair esse service para que outros locais possa utilizar sem maiores problemas
+  // cria a store para o armazenamento
+  createStore(nameBase: string, nameTable: string, version: number, path: string, index: string): IDBOpenDBRequest {
+    let request = indexedDB.open(nameBase, version)
 
-  createIndex(table: string, value: {token: string}) {
-    // requisitando um banco de dados
-    let request = indexedDB.open('myDatabasess', 2)
+    request.onupgradeneeded = (event: any) => {
+      let db = event.target.result;
 
-    // Manipulação para a criação do banco de dados
-    // cria a estrutura do banco
-    request.onupgradeneeded = function(event:any) {
-        let db = event.target.result;
-  
-        // Criando um uma store de objetos
-        let loginStore = db.createObjectStore('logins', { keyPath: 'token' })
-  
-        loginStore.createIndex('tokenIndex', 'token', { unique: true })
-      }
+      let tableStore = db.createObjectStore(nameTable, { keyPath: path });
+      tableStore.createIndex(index, { unique: true });
+    }
+
+    request.onerror = (event: any) => {
+        return console.log('Erro ao criar a store ' + event.target.error)
+    }
+
+    return request
+  }
+
+  createIndex(table: string, value: {token?: string, tokenUser?: string}, request: IDBOpenDBRequest) {
+    let values = ''
+    if (value.token !== undefined) {
+      values = value.token
+    }
+    let findIndex = this.findIndex('myDatabasess', { token: values }, request)
+    
     request.onsuccess = function (event: any) {
       let db = event.target.result;
 
       let transaction = db.transaction([table], 'readwrite')
       let tokenStore = transaction.objectStore(table)
 
-      let re = {
-        token: value.token
+      if (findIndex !== '') {
+        return console.log('Esse token já foi criado')
       }
-      let request = tokenStore.add(re)
+
+      let request = tokenStore.add(value)
 
       request.onsuccess = function(event:any) {
         console.log('Login adicionado com sucesso!');
@@ -46,21 +55,11 @@ export class IndexedDBService {
 
   }
 
-  findIndex(table: string, value:{token:string}) {
-    let request = indexedDB.open('myDatabasess', 2)
+  findIndex(table: string, value:{token:string}, request: IDBOpenDBRequest): object|string {
+    let login = ''
 
-      // Manipulação para a criação do banco de dados
-    request.onupgradeneeded = function(event:any) {
-        let db = event.target.result;
-  
-        // Criando um objeto dentro do indexDB, com nome do objeto e as "colunas"
-        let loginStore = db.createObjectStore('login', { keyPath: 'token' })
-  
-        loginStore.createIndex('tokenIndex', 'token', { unique: true })
-      }
     request.onsuccess = function (event: any) {
       let db = event.target.result;
-
       let transaction = db.transaction([table], 'readwrite')
       let tokenStore = transaction.objectStore(table)
 
@@ -68,32 +67,23 @@ export class IndexedDBService {
 
       result.onsuccess = (event:any) => {
         let login = event.target.result
-
-        console.log(login)
+        return (login !== undefined) ? alert('Logado') : null
       }
       result.onerror = (event:any) => {
         console.log('erro ' + event.target.error)
       }
     }
+
+    return login
   }
 
-  deleteIndex(index: string|number) {
-    let request = indexedDB.open('myDatabasess', 2);
-
-    request.onupgradeneeded = (event: any) => {
-      let db = event.target.result
-
-      let login = db.createObjectStore('login', {keypath: 'token'})
-
-      login.createIndex('loginIndex', 'token', { unique: true })
-
-    }
+  deleteIndex(table: string, index: string|number, request: IDBOpenDBRequest) {
 
     request.onsuccess = (event:any) => {
       let db = event.target.result;
 
-      let transaction = db.transaction(['login'], 'readwrite')
-      let tokenStore = transaction.objectStore('login')
+      let transaction = db.transaction([table], 'readwrite')
+      let tokenStore = transaction.objectStore(table)
 
       let request = tokenStore.delete(index)
 

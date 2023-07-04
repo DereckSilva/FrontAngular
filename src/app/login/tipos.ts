@@ -6,3 +6,8 @@ export type message = {
 export type teste = {
     remember: string|null
 }
+
+export type token = {
+    token: string,
+    tokenUser: string
+}
